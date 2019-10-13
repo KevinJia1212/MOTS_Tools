@@ -5,4 +5,4 @@ This code can show the images and annotations of the MOTS dataset, which is publ
 
 Edit the image sequence path and the corresponding annotation path at __main__ function, and the __init__ function of the class Data_Viewer provides 4 options for users to set whether you want to save the image video or annotation video.
 
-Then you can just run the command with Python3. Moreover, your Python should contain OpenCV module.
+Then you can just run the command with Python3. Moreover, your Python should have OpenCV module.
