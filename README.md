@@ -1,5 +1,5 @@
 # MOTS_Tools
-data visualization and evaluation tools for multi-object tracking and segmentation(MOTS) task
+Data visualization and evaluation tools for multi-object tracking and segmentation(MOTS) task.
 
 This code can show the images and annotations of the MOTS dataset, which is published by Prof.Dr.Bastian Leibe of RWTH-AACHEN university at https://www.vision.rwth-aachen.de/page/mots, and thier project link is https://github.com/VisualComputingInstitute/TrackR-CNN
 
