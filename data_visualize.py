@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import tensorflow as tf
 import cv2
 import os
@@ -16,8 +17,8 @@ class Data_Viewer:
         self._ann_folder = ann_folder
         self.show_img = True
         self.show_fusion = True
-        self.save_imgvideo = True
-        self.save_fusedvideo = True
+        self.save_imgvideo = False
+        self.save_fusedvideo = False
 
         self._car_color = [[25, 25, 112],[100, 149, 237],[106, 90, 205],[65, 105, 225],[135, 206, 235],
                             [176, 224, 230],[0, 255, 255],[46, 139, 87],[32, 178, 170],[0, 255, 127],
@@ -31,7 +32,6 @@ class Data_Viewer:
 
         self.imglist = []
         self.annlist = []
-        self.datalist = []
         self.pic_size = ()
         self.color_mask = []
         
@@ -68,11 +68,6 @@ class Data_Viewer:
             self.pic_size = (pic0.shape[0],pic0.shape[1])
         else:
             self.annlist = output
-    
-    def generate_datalist(self):
-        for i in range(len(self.imglist)):
-            self.datalist.append(self.imglist[i])
-            self.datalist.append(self.annlist[i])
 
     def visualize_data(self):
         if self.show_img:
@@ -129,7 +124,5 @@ if __name__ == '__main__':
     data_viewer = Data_Viewer(img_folder, ann_folder)
     data_viewer.check_file('img', 'png')
     data_viewer.check_file('ann', 'png')
-    data_viewer.generate_datalist()
-    #print(data_viewer.datalist)
     data_viewer.visualize_data()
     cv2.destroyAllWindows()
