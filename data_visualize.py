@@ -17,7 +17,7 @@ class Data_Viewer:
         self._ann_folder = ann_folder
         self.show_img = True
         self.show_fusion = True
-        self.save_imgvideo = False
+        self.save_imgvideo = True
         self.save_fusedvideo = False
 
         self._car_color = [[25, 25, 112],[100, 149, 237],[106, 90, 205],[65, 105, 225],[135, 206, 235],
@@ -51,6 +51,9 @@ class Data_Viewer:
         elif filetype == 'txt':
             aimfile = re.compile(r'.*txt')
             suffix = '.txt'
+        elif filetype == 'jpg':
+            aimfile = re.compile(r'.*jpg')
+            suffix = '.jpg'
         else:
             print("***********illegal type**************")    
         num = []
@@ -119,10 +122,10 @@ class Data_Viewer:
 
 
 if __name__ == '__main__':
-    img_folder = '/media/data/KITTI_MOTS/train/images/0001/'
-    ann_folder = '/media/data/KITTI_MOTS/train/instances/0001/'
+    img_folder = '/home/kun/MOTS_challenge/MOTSchallenge/train/images/0002/'
+    ann_folder = '/home/kun/MOTS_challenge/MOTSchallenge/train/instances/0002/'
     data_viewer = Data_Viewer(img_folder, ann_folder)
-    data_viewer.check_file('img', 'png')
+    data_viewer.check_file('img', 'jpg')
     data_viewer.check_file('ann', 'png')
     data_viewer.visualize_data()
     cv2.destroyAllWindows()
