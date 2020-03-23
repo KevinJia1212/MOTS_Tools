@@ -16,7 +16,7 @@ from PIL import Image
 import numpy as np
 from pycococreatortools import pycococreatortools
  
-ROOT_DIR = '/home/kun/KITTI_MOTS/val'
+ROOT_DIR = '/home/kun/KITTI_MOTS/'
 IMAGE_DIR = os.path.join(ROOT_DIR, "images")
 ANNOTATION_DIR = os.path.join(ROOT_DIR, "instances")
 ANNOTATION_SAVE_DIR = os.path.join(ROOT_DIR, "annotations")
@@ -192,9 +192,60 @@ def json_generate():
     with open('{}/val.json'.format(ROOT_DIR), 'w') as output_json_file:
         json.dump(coco_output, output_json_file)
     print(car, pedestrian)
+
+def data_normalize(data_root):
+    # data_root = '/home/kun/KITTI_MOTS'
+    train_path = os.path.join(data_root, "train/train_images")
+    test_path = os.path.join(data_root, "val/val_images")
+    # query_path = os.path.join(data_root, "query") 
+    pic_list = []
+    for pic in os.listdir(train_path):
+        pic_list.append(os.path.join(train_path, pic))
+    for pic in os.listdir(test_path):
+        pic_list.append(os.path.join(test_path, pic)) 
+    # for pic in os.listdir(query_path):
+    #     pic_list.append(os.path.join(query_path, pic)) 
+
+    R_means = []
+    G_means = []
+    B_means = []
+    R_stds = []
+    G_stds = []
+    B_stds = []
+    for pic in pic_list:
+    # for pic in os.listdir(path):
+        im = cv2.imread(pic)
+        im_R = im[:,:,2]/255  #opencv default format is BGR
+        im_G = im[:,:,1]/255
+        im_B = im[:,:,0]/255
+        im_R_mean = np.mean(im_R)
+        im_G_mean = np.mean(im_G)
+        im_B_mean = np.mean(im_B)
+        im_R_std = np.std(im_R)
+        im_G_std = np.std(im_G)
+        im_B_std = np.std(im_B)
+        R_means.append(im_R_mean)
+        G_means.append(im_G_mean)
+        B_means.append(im_B_mean)
+        R_stds.append(im_R_std)
+        G_stds.append(im_G_std)
+        B_stds.append(im_B_std)
+    means = [R_means,G_means,B_means]
+    stds = [R_stds,G_stds,B_stds]
+    mean = [0,0,0]
+    std = [0,0,0]
+    mean[0] = np.mean(means[0])
+    mean[1] = np.mean(means[1])
+    mean[2] = np.mean(means[2])
+    std[0] = np.mean(stds[0])
+    std[1] = np.mean(stds[1])
+    std[2] = np.mean(stds[2])
+    print('RGB MEAN:\n[{},{},{}]'.format(mean[0],mean[1],mean[2]))
+    print('RGB VARIANCE:\n[{},{},{}]'.format(std[0],std[1],std[2]))
  
  
 if __name__ == "__main__":
-    image_trans()
-    data_loader()
-    json_generate()
+    # image_trans()
+    # data_loader()
+    # json_generate()
+    data_normalize(ROOT_DIR)
