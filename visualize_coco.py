@@ -47,8 +47,8 @@ def showAnns(anns):
     p = PatchCollection(polygons, facecolor='none', edgecolors=color, linewidths=2)
     ax.add_collection(p)
 
-annfile = '/home/kun/KITTI_MOTS/train/train.json'
-imgroot = '/home/kun/KITTI_MOTS/train/train_images'
+annfile = '/home/kun/KITTI_MOTS/train.json'
+imgroot = '/home/kun/KITTI_MOTS/train_images'
 coco = COCO(annfile)
 cats = coco.loadCats(coco.getCatIds())
 cat_names = [cat['name'] for cat in cats]
